@@ -208,23 +208,23 @@ M.calculate_crc = function(data)
     return { M.read(0x22), M.read(0x21) }
 end
 
-M.serial_no_hex = function(sn)
+M.bytes_hex = function(bytes)
     local _hex = ''
 
-    for _, b in pairs(sn) do
+    for _, b in pairs(bytes) do
         _hex = _hex .. hex(b) .. ' '
     end
 
     return _hex
 end
 
-M.tag = function(serial_no)
+M.tag = function(bytes)
     local self = {
-        sn = serial_no
+        bytes = bytes
     }
 
     self.hex = function()
-        return M.serial_no_hex(self.sn)
+        return M.bytes_hex(self.bytes)
     end
 
     return self
