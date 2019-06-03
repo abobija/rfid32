@@ -8,6 +8,8 @@
 
 local M = {}
 
+local scan_paused = false
+
 local function hex(arg)
   return string.format("0x%02X", arg)
 end
@@ -256,6 +258,14 @@ M.get_tag = function()
     return nil
 end
 
+M.scan_pause = function()
+    scan_paused = true
+end
+
+M.scan_resume = function()
+    scan_paused = false
+end
+
 M.scan = function(opts)
     local options = extend({
         interval       = 125,
@@ -274,13 +284,17 @@ M.scan = function(opts)
         else
             _timer:interval(options.pause_interval)
             
-            options.got_tag(_tag)
+            options.got_tag(_tag, M)
         end
         
-        _timer:start()
+        if scan_paused ~= true then
+            _timer:start()
+        end
     end)
-    
-    _timer:start()
+
+    if scan_paused ~= true then
+        _timer:start()
+    end
 
     return M
 end
