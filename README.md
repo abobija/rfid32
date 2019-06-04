@@ -1,6 +1,10 @@
 # rfid32
 Lua (NodeMCU) library for interfacing ESP32 with MFRC522 rfid card reader
 
+## Demo
+
+[![Interfacing ESP32 with RFID Card Reader MFRC522](https://img.youtube.com/vi/U7DM8_piRBA/mqdefault.jpg)](https://www.youtube.com/watch?v=U7DM8_piRBA)
+
 ## Usage
 
 This example will print UID (in hexadecimal representation) of scanned rfid tag.
