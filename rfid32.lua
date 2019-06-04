@@ -237,12 +237,8 @@ M.get_tag = function()
         
         err, serial_no = M.anticoll()
         
-        local buf = {}
-        
-        buf[1] = 0x50
-        buf[2] = 0
-        
-        crc = M.calculate_crc(buf)
+        local buf = { 0x50, 0x00 }
+        local crc = M.calculate_crc(buf)
         
         table.insert(buf, crc[1])
         table.insert(buf, crc[2])
