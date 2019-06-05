@@ -8,6 +8,7 @@
 
 local M = {}
 
+local _timer = nil
 local scan_paused = false
 
 local function hex(arg)
@@ -255,11 +256,17 @@ M.get_tag = function()
 end
 
 M.scan_pause = function()
-    scan_paused = true
+    if _timer ~= nil then
+        _timer:stop()
+        scan_paused = true
+    end
 end
 
 M.scan_resume = function()
-    scan_paused = false
+    if _timer ~= nil then
+        scan_paused = false
+        _timer:start()
+    end
 end
 
 M.scan = function(opts)
@@ -269,7 +276,7 @@ M.scan = function(opts)
         got_tag        = nil
     }, opts)
 
-    local _timer = tmr.create()
+    _timer = tmr.create()
 
     _timer:register(options.interval, tmr.ALARM_SEMI, function()
         local _tag = M.get_tag()
