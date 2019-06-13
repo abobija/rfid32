@@ -212,8 +212,12 @@ end
 M.bytes_hex = function(bytes)
     local _hex = ''
 
-    for _, b in pairs(bytes) do
-        _hex = _hex .. hex(b) .. ' '
+    for i, b in pairs(bytes) do
+        _hex = _hex .. hex(b)
+
+        if i < #bytes then
+            _hex = _hex .. ' '
+        end
     end
 
     return _hex
