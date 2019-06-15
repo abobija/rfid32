@@ -55,6 +55,8 @@ local function rc522_antenna_on()
     if bit.bnot(bit.band(M.read(0x14), 0x03)) then
         rc522_set_bitmask(0x14, 0x03)
     end
+
+    M.write(0x26, 0x60) -- 43dB gain
 end
 
 function rc522_firmware()
